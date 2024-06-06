@@ -17,6 +17,7 @@ class _TodoListPageState extends State<TodoListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 37, 35, 35),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(16),
@@ -32,6 +33,12 @@ class _TodoListPageState extends State<TodoListPage> {
                         border: OutlineInputBorder(),
                         labelText: 'Adicione uma tarefa',
                         hintText: 'Ex.: Estudar programação',
+                        labelStyle: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                      style: TextStyle(
+                        color: Colors.white,
                       ),
                     ),
                   ),
@@ -49,22 +56,24 @@ class _TodoListPageState extends State<TodoListPage> {
                     child: Icon(
                       Icons.add,
                       size: 30,
+                      color: Colors.white,
                     ),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xff00d7f3),
+                      backgroundColor: Color.fromARGB(255, 245, 184, 29),
                       padding: EdgeInsets.zero,
                     ),
                   ),
                 ],
               ),
               SizedBox(height: 16),
-              Flexible(
+              Expanded(
                 child: ListView(
                   shrinkWrap: true,
                   children: [
                     for (Todo todo in todos)
                       TodoListItem(
                         todo: todo,
+                        onDelete: onDelete,
                       ),
                   ],
                 ),
@@ -74,5 +83,12 @@ class _TodoListPageState extends State<TodoListPage> {
         ),
       ),
     );
+  }
+
+  //exclui uma tarefa
+  void onDelete(Todo todo) {
+    setState(() {
+      todos.remove(todo);
+    });
   }
 }
